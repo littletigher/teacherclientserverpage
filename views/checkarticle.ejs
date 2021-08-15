@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script type="text/javascript" src="/echarts.js"></script>
+    <script type="text/javascript" src="/jquery.min.js"></script>
+<!--    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>-->
+
+</head>
+<body>
+<div style="flex-direction: column">
+    <input type="text" value="<%=data.textno%>" disabled="true">
+    <br>
+    <input type="text" value="<%=data.description%>" disabled="true">
+    <br>
+    <textarea style="width: 600px;height: 500px" disabled="true"><%=data.content%></textarea>
+    <br>
+    <div>文章贡献度图表</div>
+    <br>
+    <div style="height: 600px;width: 500px" id="main">
+    </div>
+</div>
+</body>
+</html>
+
+<script type="application/javascript">
+    var mychart=echarts.init(document.getElementById("main"));
+    $.ajax({
+        url:"/echarts?textno=<%=data.textno%>",
+        method:"POST",
+        dataType:"json",
+        success: function (data) {
+            var option ={
+                series:{
+                    type:'pie',
+                    data:data,
+                }
+            };
+            mychart.setOption(option)
+        }
+    })
+
+</script>

@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>教师端</title>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <script>
+        $(function () {
+            var url = location.search; //这一条语句获取了包括问号开始到参数的最后，不包括前面的路径
+            var params = url.substr(1);//去掉问号
+            var pa = params.split("&");
+            var s = new Object();
+            for(var i = 0; i < pa.length; i ++){
+                s[pa[i].split("=")[0]] = unescape(pa[i].split("=")[1]);
+            }
+            alert(s.teacherno+"欢迎发布任务");
+            $(".teacherno").val(s.teacherno);
+        })
+    </script>
+</head>
+<body>
+    <div>
+        发布任务界面
+    </div>
+    <br>
+<div>
+    <form action="/teacher/submitdata"  method="post">
+        <div>当前的教师账号</div>
+        <input type="text" name="teacherno" class="teacherno" value="" placeholder=""  />
+        <br>
+        <div>文章号：</div>
+        <input type="text" name="textno" value="<%=data.list.length+1%>" placeholder="文章号"  />
+        <p>发布任务的小组名称：</p>
+        <input type="text" name="groupno" value="" placeholder="请输入小组的编号" style="width: 200px"/>
+        <br>
+        <p>请输入文章的写作要求：</p>
+        <input type="text" name="description" value="" placeholder="请输入文章的写作要求" style="width: 600px;height: 600px"/>
+        <br>
+        <input type="submit" value="发布任务">
+    </form>
+    <div>
+    <span><%=data.teacher %></span><br>
+    <% data.list.map(function(item,index){ %>
+           <span>任务发布者:<%= item.teacherno %></span>  &nbsp;&nbsp;&nbsp;&nbsp;
+            <span>文章编号:<a href="/lookarticle/showarticle?thetitle=<%=item.textno%>"  ><%= item.textno %></a></span> &nbsp;&nbsp;
+            <span>参与小组:<%= item.groupno %></span>
+            <br>
+    <%})%>
+    </div>
+</div>
+</body>
+</html>
