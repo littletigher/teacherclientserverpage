@@ -5,9 +5,172 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>教师端</title>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <!--bootstrap导入    -->
+    <link rel="stylesheet" type="text/css" href="bootstrap.css"/>
+<!--美化包-->
+    <link rel="stylesheet" type="text/css" href="roll-style.css">
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script  src="roll-script.js"></script>
+
 </head>
 <body>
-    <p>这是主页</p>
+<!--顶部导航栏-->
+<!-- |以下导航栏区域   -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <a href="#" class="navbar-brand">智慧英语协同写作教师端</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li ><a href="pages/Teacher/My.jsp">我的</a></li>
+                <li ><a href="http://localhost:8082/">任务发布</a></li>
+                <li ><a href="pages/Teacher/Showblog.jsp">作品评论</a></li>
+                <li ><a href="pages/Teacher/Group.jsp">小组管理</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<br/>
+<br/>
+<!--高亮显示-->
+<script>
+    $('.nav').find('a').each(function () {
+        if (this.href == document.location.href || document.location.href.search(this.href) >= 0) {
+            $(this).parent().addClass('active'); // this.className = 'active';
+        }
+    });
+</script>
+
+<!--|以上-->
+
+
+<!--以下为发布任务界面-->
+<section id="section01" class="demo">
+    <div class="myForm" style="width:100%;height:100%;background: rgba(225,225,225,0.1)">
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <form class="form-horizontal" role="form" action="/teacher/submitdata"  method="post">
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">当前的教师账号</label>
+                <div class="col-sm-10">
+                    <input class="form-control" id="focusedInput" type="text" name="teacherno" class="teacherno" placeholder=""  value="该输入框获得焦点...">
+                </div>
+            </div>
+            <br/>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">文章号：</label>
+                <div class="col-sm-10">
+                    <input class="form-control" id="focusedInput" type="text" name="textno" value="" placeholder="文章号" value="该输入框获得焦点...">
+                </div>
+            </div>
+            <br/>
+            <!--表单需要更改-->
+            <div class="form-group">
+                <label class="col-sm-2 control-label">发布任务的小组名称：</label>
+                <div class="col-sm-10">
+                    <select class="form-control" id="focusedInput" type="text" name="groupno" value="" placeholder="请输入小组的编号">
+                        <option value="all" >全部小组(默认)</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                    </select>
+                </div>
+            </div>
+            <br>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">请输入文章的写作要求：</label>
+                <div class="col-sm-10" >
+                    <input style="overflow-y:scroll" class="form-control" id="focusedInput" type="text" name="description" value="" placeholder="请输入文章的写作要求" value="该输入框获得焦点...">
+                </div>
+            </div>
+            <br>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">点击按钮发布任务：</label>
+                <div class="col-sm-10">
+                    <input class="btn btn-primary" type="submit" value="发布任务">
+                </div>
+            </div>
+        </form>
+        <a href="#section10"><span></span>查看任务详情</a>
+    </div>
+</section>
+<!--展示端-->
+<section id="section10" class="demo">
+    <div class="myShow" style="width: 100%;height: 100%; background: rgba(255,255,255,0.2)">
+    <br/>
+    <br/>
+    <div id="preview" >
+        <h3>任务浏览</h3>
+        <span>教师号</span><br>
+        <br>
+        <span>任务发布者:teacher</span>
+        <br>
+        <span>文章编号:13224</span> &nbsp;&nbsp;
+        <br>
+        <span>参与小组:123</span>
+        <br>
+        <button class="button button4">查看</button>
+    </div>
+        <a href="#section01"><span></span></a>
+    </div>
+</section>
+
+<!--美化包-->
+<style>
+    #preview{
+        padding:10px 20px;
+        border:1px dotted #666666;
+        margin: 30px 0;
+    }
+    h3,span{
+        margin-top:10px ;
+    }
+    .myForm{
+        position: absolute;
+        z-index: 2;
+        display: inline-block;
+        letter-spacing: .1em;
+        text-decoration: none;
+        transition: opacity .3s;
+    }
+    .myShow{
+        position: absolute;
+        z-index: 2;
+        display: inline-block;
+        letter-spacing: .1em;
+        text-decoration: none;
+        transition: opacity .3s;
+    }
+
+    .button4 {
+        background-color: white;
+        color: black;
+        border: 2px solid #e7e7e7;
+        width: 64px;
+        height: 40px;
+    }
+
+    .button4:hover {background-color: #e7e7e7;}
+    #preview{
+        width: 80%;
+        box-shadow: 10px 10px 5px #888888;
+        gap: 20px;
+    }
+</style>
 </body>
 </html>
