@@ -19,28 +19,131 @@
     <br>
     <textarea style="width: 600px;height: 500px" disabled="true"><%=data.content%></textarea>
     <br>
-    <div>文章贡献度图表</div>
     <br>
-    <div style="height: 600px;width: 500px" id="main">
+    <div style="">
+    <div style="height: 700px;width: 1000px" id="changes"></div>
+    <div style="height: 700px;width: 1000px" id="loginchoices"></div>
+    <div style="height: 700px;width: 1000px" id="talks"></div>
+    <div style="width: 1000px;height: 1000px;border: 1px solid green" id="socials"></div>
     </div>
 </div>
 </body>
 </html>
 
 <script type="application/javascript">
-    var mychart=echarts.init(document.getElementById("main"));
+
+    var mychart=echarts.init(document.getElementById("changes"));
     $.ajax({
         url:"/echarts?textno=<%=data.textno%>",
         method:"POST",
         dataType:"json",
         success: function (data) {
+
             var option ={
+                title: {
+                    text: '行为/修改频率',
+                    left: 'center'
+                },
                 series:{
                     type:'pie',
                     data:data,
                 }
             };
             mychart.setOption(option)
+        }
+    })
+    var mychart1=echarts.init(document.getElementById("loginchoices"));
+    $.ajax({
+        url:"/echarts/echarts2?textno=<%=data.textno%>&groupno=<%=data.groupno%>",
+        method:"POST",
+        dataType:"json",
+        success:function (data) {
+            var option={
+                title:{
+                    text:"行为/登录次数",
+                    left: 'center'
+                },
+                series: {
+                    type:'pie',
+                    data:data
+                }
+            };
+            mychart1.setOption(option)
+        }
+    })
+    var mychart2=echarts.init(document.getElementById("talks"));
+    $.ajax({
+        url:"/echarts/echarts3?textno=<%=data.textno%>&groupno=<%=data.groupno%>",
+        method:"POST",
+        dataType:"json",
+        success:function (data) {
+            var option={
+                title:{
+                    text:"行为/交流次数",
+                    left: 'center'
+                },
+                series: {
+                    type:'pie',
+                    data:data
+                }
+            };
+            mychart2.setOption(option)
+        }
+    })
+    var mychart3=echarts.init(document.getElementById("socials"));
+    $.ajax({
+        url:"/echarts/echarts4?groupno=<%=data.groupno%>&textno=<%=data.textno%>",
+        method:"POST",
+        dataType:"json",
+        success: function (graph) {
+            graph.nodes.forEach(function (node) {
+                node.label = {
+                    show: node.symbolSize > 30
+                };
+            });
+            option = {
+                title: {
+                    text: '社会网络关系图',
+                    top: 'bottom',
+                    left: 'right'
+                },
+                tooltip: {},
+                legend: [{
+                    // selectedMode: 'single',
+                    data: graph.categories.map(function (a) {
+                        return a.name;
+                    })
+                }],
+                animationDuration: 1500,
+                animationEasingUpdate: 'quinticInOut',
+                series: [
+                    {
+                        name: '社会网络关系图',
+                        type: 'graph',
+                        layout: 'none',
+                        data: graph.nodes,
+                        links: graph.links,
+                        categories: graph.categories,
+                        roam: true,
+                        label: {
+                            position: 'right',
+                            formatter: '{b}'
+                        },
+                        lineStyle: {
+                            color: 'source',
+                            curveness: 0.3
+                        },
+                        emphasis: {
+                            focus: 'adjacency',
+                            lineStyle: {
+                                width: 10
+                            }
+                        }
+                    }
+                ]
+            };
+
+            mychart3.setOption(option)
         }
     })
 
