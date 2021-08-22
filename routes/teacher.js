@@ -78,6 +78,9 @@ router.post("/submitdata",function (req,res,next) {             //教师添加�
                                         console.log("文章插入失败！",err)
                                     }else{
                                         console.log("文章插入成功！")
+                                        if(1 ){
+                                            res.redirect("/createarticle/createarticle?title="+data.textno+"&teacherno="+data.teacherno);
+                                        }
                                     }
                                 })
                             }
@@ -85,9 +88,28 @@ router.post("/submitdata",function (req,res,next) {             //教师添加�
 
                     }
                 })
-                if(1 ){
-                    res.redirect("/createarticle/createarticle?title="+data.textno+"&teacherno="+data.teacherno);
-                }
+                db.collection("articlethreepartern").insertOne({textno:data.textno,description:data.description,content:" ",partern:"1"},function (err,ret) {
+                    if(err){
+                        console.log("出粗了")
+                    }else{
+                        console.log("一稿插入成功")
+                    }
+                })
+                db.collection("articlethreepartern").insertOne({textno:data.textno,description:data.description,content:" ",partern:"2"},function (err,ret) {
+                    if(err){
+                        console.log("出cuo了")
+                    }else{
+                        console.log("二稿插入成功")
+                    }
+                })
+                db.collection("articlethreepartern").insertOne({textno:data.textno,description:data.description,content:" ",partern:"3"},function (err,ret) {
+                    if(err){
+                        console.log("出粗了")
+                    }else{
+                        console.log("三稿插入成功")
+                    }
+                })
+
             }
         })
     })
