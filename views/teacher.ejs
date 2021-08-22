@@ -79,22 +79,13 @@
             <br/>
             <!--表单需要更改-->
             <div class="form-group">
+
                 <label class="col-sm-2 control-label" style="color:white;">发布任务的小组名称：</label>
                 <div class="col-sm-10">
                     <select class="form-control" id="focusedInput" type="text" name="groupno" value="" placeholder="请输入小组的编号">
-                        <option value="all" >全部小组(默认)</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
+                       <%for(var i=0;i<arrays.length;i++){%>
+                            <option value="<%=arrays[i]%>"><%=arrays[i]%></option>
+                        <%}%>
                     </select>
                 </div>
             </div>
@@ -122,7 +113,7 @@
         <br/>
         <div id="preview" >
             <h3 style="color: white">任务浏览</h3>
-            <span style="color:white;"><%=data.teacher %></span><br>
+            <span style="color:white"><%=data.teacher %></span><br>
             <% data.list.map(function(item,index){ %>
                 <br>
                 <span style="color: white">任务发布者:<%= item.teacherno %></span>

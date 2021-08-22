@@ -9,7 +9,10 @@ router.get('/showarticle',function (req,res,next) {
     var data={
         textno:"",
         description:"",
-        content:""
+        content:"",
+        contentofone:"",
+        contentoftwo:"",
+        contentofthree:""
     }
     data.textno=req.query.thetitle;
     model.connect(function (db) {
@@ -21,10 +24,48 @@ router.get('/showarticle',function (req,res,next) {
                 data=ret[0]
                 console.log(ret)
                 console.log(data)
-                res.render("checkarticle",{data:data})
+                db.collection("articlethreepartern").find({textno:data.textno,partern:"1"}).toArray(function (err,ret) {
+                    if(err){
+                        console.log("查找一稿出错了!");
+                    }else{
+                        var contents=ret[0].content;
+                        if(contents==" "){
+                            contents="一稿尚未提交请耐心等候。"
+                        }
+                        data.contentofone=contents;
+                    }
+                })
+                db.collection("articlethreepartern").find({textno:data.textno,partern:"2"}).toArray(function (err,ret) {
+                    if(err){
+                        console.log("查找二稿出错了!");
+                    }else{
+                        var contents=ret[0].content;
+                        if(contents==" "){
+                            contents="二稿尚未提交请耐心等候。"
+                        }
+                        data.contentoftwo=contents;
+                    }
+                })
+                db.collection("articlethreepartern").find({textno:data.textno,partern:"3"}).toArray(function (err,ret) {
+                    if(err){
+                        console.log("查找三稿出错了!");
+                    }else{
+                        var contents=ret[0].content;
+                        if(contents==" "){
+                            contents="三稿尚未提交请耐心等候。"
+                        }
+                        data.contentofthree=contents;
+                        res.render("checkarticle",{data:data})
+                    }
+                })
             }
         })
+
+
+
+
     })
+
 })
 
 module.exports=router
