@@ -22,11 +22,9 @@ router.get('/teacherpage',function (req,res,next) {
                 console.log("读取文章出错了!")
             }else{
                 console.log("读取文章成功!")
+
                 data.list=ret
-                data.list.map(function (item,index) {
-                    console.log(item)
-                })
-                console.log("这是datalist"+data.list[0])
+                console.log(data)
                 res.render('teacher',{data:data})
             }
         })

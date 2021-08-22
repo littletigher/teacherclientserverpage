@@ -20,10 +20,6 @@
             $(".teacherno").val(s.teacherno);
         })
     </script>
-
-<!--    美化包-->
-
-<!--    -->
 </head>
 <body>
     <div>
@@ -36,9 +32,7 @@
         <input type="text" name="teacherno" class="teacherno" value="" placeholder=""  />
         <br>
         <div>文章号：</div>
-
-        <input type="text" name="textno" value="" placeholder="文章号"  />
-        <!---->
+        <input type="text" name="textno" value="<%=data.list.length+1%>" placeholder="文章号"  />
         <p>发布任务的小组名称：</p>
         <input type="text" name="groupno" value="" placeholder="请输入小组的编号" style="width: 200px"/>
         <br>
@@ -48,12 +42,13 @@
         <input type="submit" value="发布任务">
     </form>
     <div>
-    <span>教师号</span><br>
-
-           <span>任务发布者:teacher</span>  &nbsp;&nbsp;&nbsp;&nbsp;
-            <span>文章编号: <a>13224</a></span> &nbsp;&nbsp;
-            <span>参与小组:123</span>
+    <span><%=data.teacher %></span><br>
+    <% data.list.map(function(item,index){ %>
+           <span>任务发布者:<%= item.teacherno %></span>  &nbsp;&nbsp;&nbsp;&nbsp;
+            <span>文章编号:<a href="/lookarticle/showarticle?thetitle=<%=item.textno%>"  ><%= item.textno %></a></span> &nbsp;&nbsp;
+            <span>参与小组:<%= item.groupno %></span>
             <br>
+    <%})%>
     </div>
 </div>
 </body>
