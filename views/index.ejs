@@ -5,172 +5,219 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>教师端</title>
-    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
-    <!--bootstrap导入    -->
-    <link rel="stylesheet" type="text/css" href="bootstrap.css"/>
-<!--美化包-->
-    <link rel="stylesheet" type="text/css" href="roll-style.css">
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-    <script  src="roll-script.js"></script>
-
+    <title>文章展示</title>
+    <script type="text/javascript" src="/echarts.js"></script>
+    <script type="text/javascript" src="/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style-back.css">
+    <link rel="stylesheet" type="text/css" href="bootstrap.css">
+    <!--    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>-->
+    <style>
+        textarea{
+            margin: 50px;
+            /*文字太多可以触发滚动条*/
+            overflow-y: scroll;
+        }
+        input{
+            margin: 50px;
+        }
+        #round
+        {   	border:15px solid transparent;
+            /*padding:10px 20px;*/
+            -webkit-border-image:url(border.png) 30 30 round; /* Safari 5 and older */
+            -o-border-image:url(border.png) 30 30 round; /* Opera */
+            border-image:url(border.png) 30 30 round;
+        }
+    </style>
 </head>
 <body>
-<!--顶部导航栏-->
-<!-- |以下导航栏区域   -->
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container">
-        <div class="navbar-header">
-            <a href="#" class="navbar-brand">智慧英语协同写作教师端</a>
-        </div>
-        <div id="navbar" class="collapse navbar-collapse">
-            <ul class="nav navbar-nav">
-                <li ><a href="pages/Teacher/My.jsp">我的</a></li>
-                <li ><a href="http://localhost:8082/">任务发布</a></li>
-                <li ><a href="pages/Teacher/Showblog.jsp">作品评论</a></li>
-                <li ><a href="pages/Teacher/Group.jsp">小组管理</a></li>
-            </ul>
-        </div>
+<div class="cr cr-top cr-left cr-sticky cr-red">Hello</div>
+<div class="cr cr-top cr-right cr-sticky cr-blue">hi</div>
+<div class="cr cr-bottom cr-left cr-sticky cr-orange">hello there</div>
+<div class="cr cr-bottom cr-right cr-sticky cr-green">hei</div>
+<div style="flex-direction: column">
+    <div class="col-sm-offset-3 col-sm-6">
+        <label class="col-sm-offset-1">文章编号:</label>
+    <input class="form-control" id="round" type="text" value="2" disabled="true">
     </div>
-</nav>
-<br/>
-<br/>
-<!--高亮显示-->
-<script>
-    $('.nav').find('a').each(function () {
-        if (this.href == document.location.href || document.location.href.search(this.href) >= 0) {
-            $(this).parent().addClass('active'); // this.className = 'active';
-        }
-    });
-</script>
-
-<!--|以上-->
-
-<h1>测试数据</h1>
-<!--以下为发布任务界面-->
-<section id="section01" class="demo">
-    <div class="myForm" style="width:100%;height:100%;background: rgba(225,225,225,0.1)">
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <form class="form-horizontal" role="form" action="/teacher/submitdata"  method="post">
-
-            <div class="form-group">
-                <label class="col-sm-2 control-label">当前的教师账号</label>
-                <div class="col-sm-10">
-                    <input class="form-control" id="focusedInput" type="text" name="teacherno" class="teacherno" placeholder=""  value="该输入框获得焦点...">
-                </div>
-            </div>
-            <br/>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">文章号：</label>
-                <div class="col-sm-10">
-                    <input class="form-control" id="focusedInput" type="text" name="textno" value="" placeholder="文章号" value="该输入框获得焦点...">
-                </div>
-            </div>
-            <br/>
-            <!--表单需要更改-->
-            <div class="form-group">
-                <label class="col-sm-2 control-label">发布任务的小组名称：</label>
-                <div class="col-sm-10">
-                    <select class="form-control" id="focusedInput" type="text" name="groupno" value="" placeholder="请输入小组的编号">
-                        <option value="all" >全部小组(默认)</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                    </select>
-                </div>
-            </div>
-            <br>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">请输入文章的写作要求：</label>
-                <div class="col-sm-10" >
-                    <input style="overflow-y:scroll" class="form-control" id="focusedInput" type="text" name="description" value="" placeholder="请输入文章的写作要求" value="该输入框获得焦点...">
-                </div>
-            </div>
-            <br>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">点击按钮发布任务：</label>
-                <div class="col-sm-10">
-                    <input class="btn btn-primary" type="submit" value="发布任务">
-                </div>
-            </div>
-        </form>
-        <a href="#section10"><span></span>查看任务详情</a>
+    <div class="col-sm-offset-3 col-sm-6">
+        <label class="col-sm-offset-1">文章提示:</label>
+    <input class="form-control" id="round" type="text" value="好好学习" disabled="true">
     </div>
-</section>
-<!--展示端-->
-<section id="section10" class="demo">
-    <div class="myShow" style="width: 100%;height: 100%; background: rgba(255,255,255,0.2)">
-    <br/>
-    <br/>
-    <div id="preview" >
-        <h3>任务浏览</h3>
-        <span>教师号</span><br>
-        <br>
-        <span>任务发布者:teacher</span>
-        <br>
-        <span>文章编号:13224</span> &nbsp;&nbsp;
-        <br>
-        <span>参与小组:123</span>
-        <br>
-        <button class="button button4">查看</button>
+    <div class="col-sm-offset-3 col-sm-6">
+        <label class="col-sm-offset-1">实时文章:</label>
+    <textarea style="width: 100%;height: 500px" disabled="true">文章标题：汪汪汪</textarea>
     </div>
-        <a href="#section01"><span></span></a>
+    <div class="col-sm-offset-3 col-sm-6">
+        <label class="col-sm-offset-1">第一稿:</label>
+    <textarea style="width: 100%;height: 500px" >第一次文章</textarea>
     </div>
-</section>
-
-<!--美化包-->
-<style>
-    #preview{
-        padding:10px 20px;
-        border:1px dotted #666666;
-        margin: 30px 0;
-    }
-    h3,span{
-        margin-top:10px ;
-    }
-    .myForm{
-        position: absolute;
-        z-index: 2;
-        display: inline-block;
-        letter-spacing: .1em;
-        text-decoration: none;
-        transition: opacity .3s;
-    }
-    .myShow{
-        position: absolute;
-        z-index: 2;
-        display: inline-block;
-        letter-spacing: .1em;
-        text-decoration: none;
-        transition: opacity .3s;
-    }
-
-    .button4 {
-        background-color: white;
-        color: black;
-        border: 2px solid #e7e7e7;
-        width: 64px;
-        height: 40px;
-    }
-
-    .button4:hover {background-color: #e7e7e7;}
-    #preview{
-        width: 80%;
-        box-shadow: 10px 10px 5px #888888;
-        gap: 20px;
-    }
-</style>
+    <div class="col-sm-offset-3 col-sm-6">
+        <label class="col-sm-offset-1">第二稿:</label>
+    <textarea style="width: 100%;height: 500px" >第二次文章</textarea>
+    </div>
+    <div class="col-sm-offset-3 col-sm-6">
+        <label class="col-sm-offset-1">终稿:</label>
+    <textarea style="width: 100%;height: 500px" >第三次文章</textarea>
+    </div>
+<!--  换行调整样式  -->
+    <br/><br/><br/><br/>
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+    <br/>                                                               <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+    <br/>                                                               <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+    <br/><br/><br/><br/>
+<!--以上 换行很重要    -->
+    <div class="col-sm-offset-2" style="">
+        <div class="chart" style="height: 700px;width: 1000px" id="changes"></div>
+        <div class="chart" style="height: 700px;width: 1000px" id="loginchoices"></div>
+        <div class="chart" style="height: 700px;width: 1000px" id="talks"></div>
+        <div style="width: 1000px;height: 1000px;border: 1px solid green" id="socials"></div>
+    </div>
+</div>
 </body>
 </html>
+
+<script type="application/javascript">
+
+    var mychart=echarts.init(document.getElementById("changes"));
+    $.ajax({
+        url:"/echarts?textno=2",
+        method:"POST",
+        dataType:"json",
+        success: function (data) {
+
+            var option ={
+                title: {
+                    text: '行为/修改频率',
+                    left: 'center'
+                },
+                series:{
+                    type:'pie',
+                    data:data,
+                },
+                roseType:'angle',
+                itemStyle: {
+                    normal: {
+                        shadowBlur: 200,
+                        shadowColor: 'rgba(100, 0, 0, 0.5)'
+                    }
+                }
+            };
+            mychart.setOption(option)
+        }
+    })
+    var mychart1=echarts.init(document.getElementById("loginchoices"));
+    $.ajax({
+        url:"/echarts/echarts2?textno=2&groupno=1",
+        method:"POST",
+        dataType:"json",
+        success:function (data) {
+            var option={
+                title:{
+                    text:"行为/登录次数",
+                    left: 'center'
+                },
+                series: {
+                    type:'pie',
+                    data:data
+                },
+                roseType:'angle',
+                itemStyle: {
+                    normal: {
+                        shadowBlur: 200,
+                        shadowColor: 'rgba(100, 0, 0, 0.5)'
+                    }
+                }
+            };
+            mychart1.setOption(option)
+        }
+    })
+    var mychart2=echarts.init(document.getElementById("talks"));
+    $.ajax({
+        url:"/echarts/echarts3?textno=2&groupno=1",
+        method:"POST",
+        dataType:"json",
+        success:function (data) {
+            var option={
+                title:{
+                    text:"行为/交流次数",
+                    left: 'center'
+                },
+                series: {
+                    type:'pie',
+                    data:data
+                },
+                roseType:'angle',
+                itemStyle: {
+                    normal: {
+                        shadowBlur: 200,
+                        shadowColor: 'rgba(100, 0, 0, 0.5)'
+                    }
+                }
+            };
+            mychart2.setOption(option)
+        }
+    })
+    var mychart3=echarts.init(document.getElementById("socials"));
+    $.ajax({
+        url:"/echarts/echarts4?groupno=1&textno=2",
+        method:"POST",
+        dataType:"json",
+        success: function (graph) {
+            graph.nodes.forEach(function (node) {
+                node.label = {
+                    show: node.symbolSize > 30
+                };
+            });
+            option = {
+                title: {
+                    text: '社会网络关系图',
+                    top: 'bottom',
+                    left: 'right'
+                },
+                tooltip: {},
+                legend: [{
+                    // selectedMode: 'single',
+                    data: graph.categories.map(function (a) {
+                        return a.name;
+                    })
+                }],
+                animationDuration: 1500,
+                animationEasingUpdate: 'quinticInOut',
+                series: [
+                    {
+                        name: '社会网络关系图',
+                        type: 'graph',
+                        layout: 'none',
+                        data: graph.nodes,
+                        links: graph.links,
+                        categories: graph.categories,
+                        roam: true,
+                        label: {
+                            position: 'right',
+                            formatter: '{b}'
+                        },
+                        lineStyle: {
+                            color: 'source',
+                            curveness: 0.3
+                        },
+                        emphasis: {
+                            focus: 'adjacency',
+                            lineStyle: {
+                                width: 10
+                            }
+                        }
+                    }
+                ]
+            };
+
+            mychart3.setOption(option)
+        }
+    })
+
+</script>
+
+<!--边框美化-->
+<img src="/border.png" />
